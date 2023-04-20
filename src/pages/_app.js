@@ -1,5 +1,8 @@
-import '@styles/globals.css'
+import '@styles/tailwind.css'
 import MainLayout from '@components/layouts/MainLayout'
+import { Provider } from 'react-redux'
+import { ProviderAuth } from '@hooks/useAuth'
+import store from '@context/index'
 
 export const metadata = {
   title: 'Create Next App',
@@ -8,8 +11,12 @@ export const metadata = {
 
 export default function App({ Component, pageProps }) {
   return (
-    <MainLayout>
-      <Component {...pageProps} />
-    </MainLayout>
+    <Provider store={store}>
+      <ProviderAuth>
+        <MainLayout>
+          <Component {...pageProps} />
+        </MainLayout>
+      </ProviderAuth>
+    </Provider>
   )
 }
