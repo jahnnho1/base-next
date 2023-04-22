@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { setPageTitle } from '@context/themeConfigSlice'
@@ -11,6 +11,7 @@ const LoginCover = () => {
   const dispatch = useDispatch()
   const formRef = useRef(null)
   const auth = useAuth()
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     dispatch(setPageTitle('Login Cover'))
@@ -24,9 +25,16 @@ const LoginCover = () => {
     const email = data.email
     const password = data.password
 
-    auth.signIn(email, password).then((res) => {
-      console.log(res)
-    })
+    auth
+      .signIn(email, password)
+      .then(() => {
+        setError(null)
+        router.push('/dashboard')
+      })
+      .catch((err) => {
+        console.log('Login error', err)
+        setError('Invalid email or password')
+      })
   }
 
   return (
@@ -75,6 +83,7 @@ const LoginCover = () => {
                   name="password"
                 />
               </div>
+              {error && <div className="text-red-500 text-sm">{error}</div>}
               <div>
                 <label className="cursor-pointer">
                   <input

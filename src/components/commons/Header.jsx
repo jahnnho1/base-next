@@ -6,6 +6,7 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import Image from 'next/image'
 import Link from 'next/link'
 import Cookie from 'js-cookie'
+import { useAuth } from '@hooks/useAuth'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -14,7 +15,7 @@ function classNames(...classes) {
 export default function Header() {
   const [userData, setUserData] = useState({})
   const token = Cookie.get('user-token')
-  //const auth = useAuth()
+  const auth = useAuth()
 
   useEffect(() => {
     if (token) {
@@ -140,9 +141,22 @@ export default function Header() {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                          <button className="block px-4 py-2 text-sm text-gray-700">
-                            Logout
-                          </button>
+                          {Cookie.get('token') ? (
+                            <button
+                              onClick={() => auth.logout()}
+                              className="block px-4 py-2 text-sm text-gray-700"
+                              style={{ cursor: 'pointer' }}
+                            >
+                              Logout
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => auth.logout()}
+                              className="block px-4 py-2 text-sm text-gray-700"
+                            >
+                              Login
+                            </button>
+                          )}
                         </Menu.Items>
                       </Transition>
                     </Menu>
