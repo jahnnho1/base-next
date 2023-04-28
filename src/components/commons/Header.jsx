@@ -49,6 +49,12 @@ export default function Header() {
       current: false,
       role: 'customer',
     },
+    {
+      name: 'Orders',
+      href: '/dashboard/orders',
+      current: false,
+      role: 'customer',
+    },
   ]
   const userNavigation = [
     { name: 'Your Profile', href: '#', role: 'customer' },
