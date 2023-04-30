@@ -3,7 +3,7 @@ import Header from '@components/commons/Header'
 export default function MainLayout({ children }) {
   return (
     <div
-      className={`navbar-static main-container min-h-screen text-black dark:text-white-dark`}
+      className={`main-section relative font-nunito text-sm font-normal antialiase`}
     >
       <div className="main-content">
         <Header />

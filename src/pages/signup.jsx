@@ -17,8 +17,8 @@ const RegisterBoxed = () => {
   }
 
   return (
-    <div className="flex min-h-fit items-center justify-center bg-[url('/assets/images/map.svg')] bg-cover bg-center dark:bg-[url('/assets/images/map-dark.svg')]">
-      <div className="panel m-6 w-full max-w-lg sm:w-[480px]">
+    <div className="flex min-h-full	 items-center justify-center bg-[url('/assets/images/map.svg')] bg-cover bg-center dark:bg-[url('/assets/images/map-dark.svg')]">
+      <div className="panel m-8 sm:m-40 w-full max-w-lg sm:w-[480px]">
         <h2 className="mb-3 text-2xl font-bold">Sign Up</h2>
         <p className="mb-7">Enter your email and password to register</p>
         <form className="space-y-5" onSubmit={submitForm}>
@@ -156,7 +156,7 @@ const RegisterBoxed = () => {
         <p className="text-center">
           Already have an account ?
           <Link
-            href="/auth/boxed-signin"
+            href="/login"
             className="font-bold text-primary hover:underline ltr:ml-1 rtl:mr-1"
           >
             Sign In

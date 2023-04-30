@@ -14,7 +14,7 @@ const LoginCover = () => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    dispatch(setPageTitle('Login Cover'))
+    dispatch(setPageTitle('Login'))
   })
   const router = useRouter()
 
@@ -38,7 +38,7 @@ const LoginCover = () => {
   }
 
   return (
-    <div className="min-h-screen text-black dark:text-white-dark">
+    <div className="min-h-screen text-black dark:text-white-dark overflow-hidden">
       <div className="flex min-h-screen">
         <div className="hidden min-h-screen w-1/2 flex-col  items-center justify-center bg-gradient-to-t from-[#ff1361bf] to-[#44107A] p-4 text-white dark:text-black lg:flex">
           <div className="mx-auto mb-5 w-full">
@@ -59,7 +59,7 @@ const LoginCover = () => {
           </p>
         </div>
         <div className="relative flex w-full items-center justify-center lg:w-1/2">
-          <div className="max-w-[480px] p-5 md:p-10">
+          <div className="max-w-[480px] p-4 md:p-10">
             <h2 className="mb-3 text-3xl font-bold">Sign In</h2>
             <p className="mb-7">Enter your email and password to login</p>
             <form className="space-y-5" onSubmit={submitForm} ref={formRef}>
@@ -190,7 +190,7 @@ const LoginCover = () => {
             <p className="text-center">
               Dont&apos;t have an account ?
               <Link
-                href="/newAccount"
+                href="/signup"
                 className="font-bold text-primary hover:underline ltr:ml-1 rtl:mr-1"
               >
                 Sign Up
