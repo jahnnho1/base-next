@@ -20,6 +20,8 @@ const initialState = {
     { code: 'sv', name: 'Swedish' },
     { code: 'tr', name: 'Turkish' },
   ],
+  theme: 'light',
+  animation: '',
 }
 
 const themeConfigSlice = createSlice({

@@ -7,13 +7,12 @@ import store from '@context/index'
 import 'react-perfect-scrollbar/dist/css/styles.css'
 
 export default function App({ Component, pageProps }) {
+  const getLayout =
+    Component.getLayout ?? ((page) => <MainLayout>{page}</MainLayout>)
+
   return (
     <Provider store={store}>
-      <ProviderAuth>
-        <MainLayout>
-          <Component {...pageProps} />
-        </MainLayout>
-      </ProviderAuth>
+      <ProviderAuth>{getLayout(<Component {...pageProps} />)}</ProviderAuth>
     </Provider>
   )
 }

@@ -6,6 +6,7 @@ import Link from 'next/link'
 const authCover = require('@images/login.svg')
 import Image from 'next/image'
 import { useAuth } from '@hooks/useAuth'
+import BlankLayout from '@components/layouts/BlankLayout'
 
 const LoginCover = () => {
   const dispatch = useDispatch()
@@ -201,5 +202,9 @@ const LoginCover = () => {
       </div>
     </div>
   )
+}
+
+LoginCover.getLayout = (page) => {
+  return <BlankLayout>{page}</BlankLayout>
 }
 export default LoginCover
