@@ -76,10 +76,56 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="pt-5">
-          <div className="mb-6 grid gap-4 lg:grid-cols-4">
+          <div className="mb-6 grid gap-4 lg:grid-cols-3">
             <div className="panel h-full xl:col-span-2">
               <div className="mb-5 flex items-center justify-between dark:text-white-light">
                 <h5 className="text-lg font-semibold">Content 6 </h5>
+              </div>
+            </div>
+            <div className="panel h-full">
+              <div className="mb-5 flex items-center lg:grid-cols-1">
+                <h5 className="text-lg font-semibold dark:text-white-light">
+                  Content 6
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="pt-5">
+          <div className="mb-6 grid gap-4 lg:grid-cols-3">
+            <div className="panel h-full">
+              <div className="mb-5 flex items-center lg:grid-cols-1">
+                <h5 className="text-lg font-semibold dark:text-white-light">
+                  Content 6
+                </h5>
+              </div>
+            </div>
+            <div className="panel h-full">
+              <div className="mb-5 flex items-center lg:grid-cols-1">
+                <h5 className="text-lg font-semibold dark:text-white-light">
+                  Content 6
+                </h5>
+              </div>
+            </div>
+            <div className="panel h-full">
+              <div className="mb-5 flex items-center lg:grid-cols-1">
+                <h5 className="text-lg font-semibold dark:text-white-light">
+                  Content 6
+                </h5>
+              </div>
+            </div>
+            <div className="panel h-full">
+              <div className="mb-5 flex items-center lg:grid-cols-1">
+                <h5 className="text-lg font-semibold dark:text-white-light">
+                  Content 6
+                </h5>
+              </div>
+            </div>
+            <div className="panel h-full">
+              <div className="mb-5 flex items-center lg:grid-cols-1">
+                <h5 className="text-lg font-semibold dark:text-white-light">
+                  Content 6
+                </h5>
               </div>
             </div>
             <div className="panel h-full">
