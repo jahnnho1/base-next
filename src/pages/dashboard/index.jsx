@@ -96,42 +96,42 @@ export default function Dashboard() {
             <div className="panel h-full">
               <div className="mb-5 flex items-center lg:grid-cols-1">
                 <h5 className="text-lg font-semibold dark:text-white-light">
-                  Content 6
+                  Content 7
                 </h5>
               </div>
             </div>
             <div className="panel h-full">
               <div className="mb-5 flex items-center lg:grid-cols-1">
                 <h5 className="text-lg font-semibold dark:text-white-light">
-                  Content 6
+                  Content 7
                 </h5>
               </div>
             </div>
             <div className="panel h-full">
               <div className="mb-5 flex items-center lg:grid-cols-1">
                 <h5 className="text-lg font-semibold dark:text-white-light">
-                  Content 6
+                  Content 7
                 </h5>
               </div>
             </div>
             <div className="panel h-full">
               <div className="mb-5 flex items-center lg:grid-cols-1">
                 <h5 className="text-lg font-semibold dark:text-white-light">
-                  Content 6
+                  Content 7
                 </h5>
               </div>
             </div>
             <div className="panel h-full">
               <div className="mb-5 flex items-center lg:grid-cols-1">
                 <h5 className="text-lg font-semibold dark:text-white-light">
-                  Content 6
+                  Content 7
                 </h5>
               </div>
             </div>
             <div className="panel h-full">
               <div className="mb-5 flex items-center lg:grid-cols-1">
                 <h5 className="text-lg font-semibold dark:text-white-light">
-                  Content 6
+                  Content 7
                 </h5>
               </div>
             </div>
