@@ -1,7 +1,39 @@
+import Link from 'next/link'
+
 export default function HomeProducts() {
   return (
-    <div>
-      <h1>Products</h1>
-    </div>
+    <>
+      <div>
+        <ul className="flex space-x-2 rtl:space-x-reverse">
+          <li>
+            <Link href="/dashboard" className="text-primary hover:underline">
+              Inicio Dashboard
+            </Link>
+          </li>
+          <li className="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+            <span> Inicio Productos</span>
+          </li>
+        </ul>
+        <div className="pt-5">
+          <div className="mb-6 grid gap-4 lg:grid-cols-5">
+            <div className="panel h-full xl:col-span-4">
+              <div className="mb-5 flex items-center lg:grid-cols-1">
+                <h5 className="text-lg font-semibold dark:text-white-light">
+                  Lista de productos
+                </h5>
+              </div>
+            </div>
+            <div className="panel h-full">
+              <div className="mb-5 flex items-center lg:grid-cols-1">
+                <h5 className="text-lg font-semibold dark:text-white-light">
+                  Acciones
+                </h5>
+                <button>Agregar Productos</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
