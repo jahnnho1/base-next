@@ -2,10 +2,12 @@ import Link from 'next/link'
 import { tableDataProducts } from '@utils/dataTablesExamples'
 import { PlusIcon } from '@heroicons/react/solid'
 import TableProducts from '@components/tables/tableProducts'
+import { useRouter } from 'next/router'
 
 export default function HomeProducts() {
+  const router = useRouter()
   function handleClickbtnTest() {
-    console.log('click')
+    router.push('/dashboard/products/create')
   }
 
   return (
@@ -17,7 +19,7 @@ export default function HomeProducts() {
           </Link>
         </li>
         <li className="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
-          <span> Inicio Productos</span>
+          <span> Productos</span>
         </li>
       </ul>
       <div className="pt-5">
@@ -32,7 +34,7 @@ export default function HomeProducts() {
               onClick={handleClickbtnTest}
             >
               <PlusIcon className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
-              Add Product
+              Agregar producto
             </button>
           </div>
         </div>

@@ -1,6 +1,14 @@
 import { TrashIcon, CogIcon } from '@heroicons/react/solid'
+import { tableDataCategories } from '@utils/dataTablesExamples'
 
 export default function TableProducts(props) {
+  function cargarCategeria(categoryId) {
+    const category = tableDataCategories.find((category) => {
+      return category.id === categoryId
+    })
+    return category.name
+  }
+
   const tableDataProducts = props.tableDataProducts
   return (
     <div className="table-responsive mb-5">
@@ -9,6 +17,7 @@ export default function TableProducts(props) {
           <tr>
             <th>Nombre</th>
             <th>Precio</th>
+            <th>Categoria</th>
             <th>Stock</th>
             <th>Descripcion</th>
             <th>Status</th>
@@ -25,6 +34,9 @@ export default function TableProducts(props) {
                   <div className="whitespace-nowrap">{data.name}</div>
                 </td>
                 <td className="text-right">${data.price}</td>
+                <td className="text-right">
+                  {cargarCategeria(data.categoryId)}
+                </td>
                 <td className="text-center">{data.stock}</td>
                 <td>{data.description.split('...', 10)}</td>
                 <td>

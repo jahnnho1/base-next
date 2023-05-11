@@ -3,6 +3,7 @@ const tableDataProducts = [
     id: 1,
     name: 'Reloj Cassio',
     price: '100.00',
+    categoryId: 1,
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
     stock: 10,
@@ -16,6 +17,7 @@ const tableDataProducts = [
     id: 2,
     name: 'Camiseta Nike',
     price: '25.00',
+    categoryId: 1,
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
     stock: 20,
@@ -29,6 +31,7 @@ const tableDataProducts = [
     id: 3,
     name: 'Audífonos Sony',
     price: '80.00',
+    categoryId: 2,
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
     stock: 15,
@@ -40,4 +43,25 @@ const tableDataProducts = [
   },
 ]
 
-export { tableDataProducts }
+const tableDataCategories = [
+  {
+    id: 1,
+    name: 'Dormitorio',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
+    status: 'active',
+    createdAt: '2023-02-01',
+    updatedAt: '2023-03-01',
+  },
+  {
+    id: 2,
+    name: 'Automotriz',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
+    status: 'active',
+    createdAt: '2023-02-01',
+    updatedAt: '2023-03-01',
+  },
+]
+
+export { tableDataProducts, tableDataCategories }

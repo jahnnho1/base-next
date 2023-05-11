@@ -6,13 +6,13 @@ export default function MainLayout({ children }) {
   const themeConfig = useSelector((state) => state.themeConfig)
   const [animation] = useState(themeConfig.animation)
   return (
-    <div
+    <section
       className={`main-section relative font-nunito text-sm font-normal antialiase`}
     >
-      <div className="main-content">
-        <Header />
+      <Header />
+      <main className="main-content">
         <div className={`${animation} animate__animated p-6`}>{children}</div>
-      </div>
-    </div>
+      </main>
+    </section>
   )
 }

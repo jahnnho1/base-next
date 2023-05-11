@@ -161,7 +161,7 @@ export default function Header() {
                           {Cookie.get('token') ? (
                             <button
                               onClick={() => auth.logout()}
-                              className="block px-4 py-2 text-sm text-gray-700"
+                              className="block px-4 py-2 text-sm text-gray-700 z-50"
                               style={{ cursor: 'pointer' }}
                             >
                               Logout
