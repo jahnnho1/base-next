@@ -29,14 +29,24 @@ export default function FormProduct() {
       label: name,
     }))
     setData(obj)
-    console.log(obj)
   }, [])
 
   function handleSubmit(e) {
     e.preventDefault()
     const formData = new FormData(formRef.current)
     const form = Object.fromEntries(formData)
-    console.log(form)
+
+    const objFormated = {
+      title: form.name,
+      price: form.price,
+      description: form.description,
+      categoryId: form.categoryId,
+      images: [
+        'https://cdna.artstation.com/p/assets/images/images/046/235/272/smaller_square/pixel-arts-de-un-nino-random-ranita-uwu.jpg?1644605499',
+      ],
+    }
+
+    console.log(objFormated)
   }
 
   return (
@@ -80,14 +90,14 @@ export default function FormProduct() {
       <div className="mb-4 col-span-1">
         <label
           className="block text-gray-700 font-bold mb-2"
-          htmlFor="categoriesId"
+          htmlFor="categoryId"
         >
           Categoria
         </label>
         <Select
           placeholder="Select an option"
           options={data}
-          name="categoriesId"
+          name="categoryId"
         />
       </div>
       <div className="mb-4 col-span-1">
