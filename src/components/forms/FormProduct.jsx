@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
+import { addProduct } from '@services/api/product'
 
 import { tableDataCategories } from '@utils/dataTablesExamples'
 
@@ -46,7 +47,9 @@ export default function FormProduct() {
       ],
     }
 
-    console.log(objFormated)
+    addProduct(objFormated)
+      .then((res) => console.log(res.props.data))
+      .catch((err) => console.log(err))
   }
 
   return (
