@@ -1,5 +1,6 @@
 import { TrashIcon, CogIcon } from '@heroicons/react/solid'
 import { tableDataCategories } from '@utils/dataTablesExamples'
+import Link from 'next/link'
 
 export default function TableProducts(props) {
   function cargarCategeria(categoryId) {
@@ -60,7 +61,9 @@ export default function TableProducts(props) {
                 <td className="text-center">{data.updatedAt}</td>
                 <td className="text-center">
                   <TrashIcon className="h-6 w-6 text-red-500 inline" />
-                  <CogIcon className="h-6 w-6 text-black-500 inline" />
+                  <Link href={`/dashboard/products/edit/${data.id}`}>
+                    <CogIcon className="h-6 w-6 text-black-500 inline" />
+                  </Link>
                 </td>
               </tr>
             )
