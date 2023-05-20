@@ -9,7 +9,6 @@ export default function EditProduct() {
 
   useEffect(() => {
     const { id } = router.query
-    console.log(id)
     if (id) {
       getProduct(id)
         .then((res) => {
@@ -18,7 +17,6 @@ export default function EditProduct() {
         .catch((err) => console.log(err))
     }
   }, [router.isReady, router.query])
-
   return (
     <div>
       <h1>editProduct</h1>

@@ -3,13 +3,13 @@ import { tableDataCategories } from '@utils/dataTablesExamples'
 import Link from 'next/link'
 
 export default function TableProducts(props) {
-  function cargarCategeria(categoryId) {
+  /*function cargarCategeria(categoryId) {
     const category = tableDataCategories.find((category) => {
       return category.id === categoryId
     })
     return category.name
   }
-
+  */
   const tableDataProducts = props.tableDataProducts
   return (
     <div className="table-responsive mb-5">
@@ -32,13 +32,11 @@ export default function TableProducts(props) {
             return (
               <tr key={data.id}>
                 <td>
-                  <div className="whitespace-nowrap">{data.name}</div>
+                  <div className="whitespace-nowrap">{data.title}</div>
                 </td>
                 <td className="text-right">${data.price}</td>
-                <td className="text-right">
-                  {cargarCategeria(data.categoryId)}
-                </td>
-                <td className="text-center">{data.stock}</td>
+                <td className="text-center">{data.category.name}</td>
+                <td className="text-center">10</td>
                 <td>{data.description.split('...', 10)}</td>
                 <td>
                   <div
@@ -57,7 +55,7 @@ export default function TableProducts(props) {
                     {data.status}
                   </div>
                 </td>
-                <td className="text-center">{data.createdAt}</td>
+                <td className="text-center">{data.creationAt}</td>
                 <td className="text-center">{data.updatedAt}</td>
                 <td className="text-center">
                   <TrashIcon className="h-6 w-6 text-red-500 inline" />

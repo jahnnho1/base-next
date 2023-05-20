@@ -1,14 +1,24 @@
 import Link from 'next/link'
-import { tableDataProducts } from '@utils/dataTablesExamples'
+import { getProducts } from '@services/api/product'
 import { PlusIcon } from '@heroicons/react/solid'
 import TableProducts from '@components/tables/tableProducts'
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
 export default function HomeProducts() {
   const router = useRouter()
   function handleClickbtnTest() {
     router.push('/dashboard/products/create')
   }
+
+  const [tableDataProducts, setTableDataProducts] = useState([])
+  useEffect(() => {
+    getProducts()
+      .then((res) => {
+        setTableDataProducts(res.props.data)
+      })
+      .catch((err) => console.log(err))
+  }, [])
 
   return (
     <>
