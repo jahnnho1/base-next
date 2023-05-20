@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { setPageTitle } from '@context/themeConfigSlice'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import BlankLayout from '@components/layouts/BlankLayout'
 
 const RegisterBoxed = () => {
   const dispatch = useDispatch()
@@ -165,5 +166,9 @@ const RegisterBoxed = () => {
       </div>
     </div>
   )
+}
+
+RegisterBoxed.getLayout = (page) => {
+  return <BlankLayout>{page}</BlankLayout>
 }
 export default RegisterBoxed

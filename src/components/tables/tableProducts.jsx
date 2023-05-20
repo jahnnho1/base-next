@@ -1,5 +1,4 @@
 import { TrashIcon, CogIcon } from '@heroicons/react/solid'
-import { tableDataCategories } from '@utils/dataTablesExamples'
 import Link from 'next/link'
 
 export default function TableProducts(props) {
