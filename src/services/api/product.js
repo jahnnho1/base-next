@@ -79,4 +79,34 @@ const getProducts = async () => {
   }
 }
 
-export { addProduct, getProduct, getProducts }
+const editProduct = async (idProduct, product) => {
+  try {
+    const config = {
+      method: 'PUT',
+      body: JSON.stringify(product),
+      headers: {
+        accept: '*/*',
+        'Content-Type': 'application/json',
+      },
+    }
+    const response = await fetch(
+      endPoints.products.updateProducts(idProduct),
+      config
+    )
+    const data = await response.json()
+    return {
+      props: {
+        data,
+      },
+    }
+  } catch (error) {
+    console.error('Error al obtener los datos:', error)
+    return {
+      props: {
+        data: null,
+      },
+    }
+  }
+}
+
+export { addProduct, getProduct, getProducts, editProduct }

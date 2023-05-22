@@ -1,13 +1,15 @@
 import { useRef, useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { addProduct } from '@services/api/product'
+import { addProduct, editProduct } from '@services/api/product'
+import { useRouter } from 'next/router'
 
 import { tableDataCategories } from '@utils/dataTablesExamples'
 
-export default function FormProduct() {
+export default function FormProduct({ product }) {
   const [data, setData] = useState([])
   const formRef = useRef(null)
   const Select = dynamic(() => import('react-select'), { ssr: false })
+  const router = useRouter()
 
   const statusSelect = [
     {
@@ -47,9 +49,18 @@ export default function FormProduct() {
       ],
     }
 
-    addProduct(objFormated)
-      .then((res) => console.log(res.props.data))
-      .catch((err) => console.log(err))
+    if (product) {
+      editProduct(product.id, objFormated)
+        .then(
+          (res) => console.log(res.props.data),
+          router.push('/dashboard/products')
+        )
+        .catch((err) => console.log(err))
+    } else {
+      addProduct(objFormated)
+        .then((res) => console.log(res.props.data))
+        .catch((err) => console.log(err))
+    }
   }
 
   return (
@@ -67,6 +78,7 @@ export default function FormProduct() {
             name="name"
             type="text"
             ref={formRef}
+            defaultValue={product?.title}
           />
         </div>
       </div>
@@ -78,6 +90,7 @@ export default function FormProduct() {
           className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           name="price"
           type="number"
+          defaultValue={product?.price}
         />
       </div>
       <div className="mb-4 col-span-1">
@@ -88,6 +101,7 @@ export default function FormProduct() {
           className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           name="stock"
           type="number"
+          defaultValue={product?.stock || 0}
         />
       </div>
       <div className="mb-4 col-span-1">
@@ -101,11 +115,12 @@ export default function FormProduct() {
           placeholder="Select an option"
           options={data}
           name="categoryId"
+          defaultValue={product?.category?.id}
         />
       </div>
       <div className="mb-4 col-span-1">
         <label className="block text-gray-700 font-bold mb-2" htmlFor="status">
-          Categoria
+          Estado
         </label>
         <Select
           placeholder="Select an option"
@@ -125,6 +140,7 @@ export default function FormProduct() {
           className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           name="description"
           type="text"
+          defaultValue={product?.description || ''}
         />
       </div>
       <div className="mb-4 col-span-1 flex justify-center items-center">
