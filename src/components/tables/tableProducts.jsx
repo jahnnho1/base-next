@@ -1,7 +1,11 @@
 import { TrashIcon, CogIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
 
-export default function TableProducts(props) {
+export default function TableProducts({
+  tableDataProducts,
+  setAlert,
+  setOpen,
+}) {
   /*function cargarCategeria(categoryId) {
     const category = tableDataCategories.find((category) => {
       return category.id === categoryId
@@ -9,7 +13,7 @@ export default function TableProducts(props) {
     return category.name
   }
   */
-  const tableDataProducts = props.tableDataProducts
+
   return (
     <div className="table-responsive mb-5">
       <table className="table-hover">
@@ -23,7 +27,7 @@ export default function TableProducts(props) {
             <th>Status</th>
             <th>Fecha Creacion</th>
             <th>Ult. Actualizacion</th>
-            <th className="text-center">Acciones</th>
+            <th classNamgbe="text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>

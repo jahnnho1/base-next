@@ -18,9 +18,13 @@ export default function EditProduct() {
     }
   }, [router.isReady, router.query])
   return (
-    <div>
-      <h1>editProduct</h1>
-      <FormProduct product={product} />
+    <div className="grid grid-cols-1 lg:grid-cols-4">
+      <div className="lg:col-span-2 lg:col-start-2 panel">
+        <FormProduct
+          product={product}
+          title="Editar Informacion del Producto"
+        />
+      </div>
     </div>
   )
 }

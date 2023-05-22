@@ -4,7 +4,7 @@ export default function createProduct() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4">
       <div className="lg:col-span-2 lg:col-start-2 panel">
-        <FormProduct />
+        <FormProduct title="Crear nuevo producto" />
       </div>
     </div>
   )

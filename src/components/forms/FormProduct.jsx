@@ -1,15 +1,13 @@
 import { useRef, useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { addProduct, editProduct } from '@services/api/product'
-import { useRouter } from 'next/router'
 
 import { tableDataCategories } from '@utils/dataTablesExamples'
 
-export default function FormProduct({ product }) {
+export default function FormProduct({ product, title, setOpen, setAlert }) {
   const [data, setData] = useState([])
   const formRef = useRef(null)
   const Select = dynamic(() => import('react-select'), { ssr: false })
-  const router = useRouter()
 
   const statusSelect = [
     {
@@ -52,21 +50,54 @@ export default function FormProduct({ product }) {
     if (product) {
       editProduct(product.id, objFormated)
         .then(
-          (res) => console.log(res.props.data),
-          router.push('/dashboard/products')
+          () =>
+            setAlert({
+              active: true,
+              message: 'Product added successfully',
+              type: 'success',
+              autoClose: false,
+            }),
+          setOpen(false)
         )
-        .catch((err) => console.log(err))
+        .catch(
+          (err) =>
+            setAlert({
+              active: true,
+              message: err.message,
+              type: 'error',
+              autoClose: false,
+            }),
+          setOpen(false)
+        )
     } else {
       addProduct(objFormated)
-        .then((res) => console.log(res.props.data))
-        .catch((err) => console.log(err))
+        .then(
+          () =>
+            setAlert({
+              active: true,
+              message: 'Product added successfully',
+              type: 'success',
+              autoClose: false,
+            }),
+          setOpen(false)
+        )
+        .catch(
+          (err) =>
+            setAlert({
+              active: true,
+              message: err.message,
+              type: 'error',
+              autoClose: false,
+            }),
+          setOpen(false)
+        )
     }
   }
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
       <h2 className="text-base font-semibold leading-7 text-gray-900 mb-4 text-center">
-        Product Information
+        {title}
       </h2>
       <div className="grid grid-cols-1">
         <div className="col-span-1 mb-4">
