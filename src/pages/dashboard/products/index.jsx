@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getProducts } from '@services/api/product'
+import { allProducts, getProducts } from '@services/api/product'
 import { PlusIcon } from '@heroicons/react/solid'
 import TableProducts from '@components/tables/tableProducts'
 import { useEffect, useState } from 'react'
@@ -14,7 +14,7 @@ export default function HomeProducts() {
 
   const [tableDataProducts, setTableDataProducts] = useState([])
   useEffect(() => {
-    getProducts()
+    getProducts(10, 1)
       .then((res) => {
         setTableDataProducts(res.props.data)
       })
@@ -34,13 +34,12 @@ export default function HomeProducts() {
           <Alert alert={alert} handleClose={toggleAlert} />
         </li>
       </ul>
-      <di-v className="pt-5">
+      <div className="pt-5">
         <div className="mb-6 grid grid-cols-1 lg:grid-cols-5">
           <div className="panel h-full lg:col-span-4 order-last lg:order-none ">
             <TableProducts
               tableDataProducts={tableDataProducts}
               setAlert={setAlert}
-              setOpen={setOpen}
             />
           </div>
           <div className="mb-5 flex justify-center items-center lg:col-span-1  order-first lg:order-none">
@@ -54,7 +53,7 @@ export default function HomeProducts() {
             </button>
           </div>
         </div>
-      </di-v>
+      </div>
       {open ? (
         <Modal open={open} setOpen={setOpen}>
           <FormProduct

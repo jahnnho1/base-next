@@ -167,12 +167,11 @@ export default function FormProduct({ product, title, setOpen, setAlert }) {
         >
           Descripcion
         </label>
-        <input
-          className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          name="description"
-          type="text"
+        <textarea
+          className="caret-pink-500 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           defaultValue={product?.description || ''}
-        />
+          name="description"
+        ></textarea>
       </div>
       <div className="mb-4 col-span-1 flex justify-center items-center">
         <input type="submit" value="Enviar" className="btn btn-primary" />

@@ -53,7 +53,7 @@ const getProduct = async (id) => {
   }
 }
 
-const getProducts = async () => {
+const allProducts = async () => {
   try {
     const config = {
       method: 'GET',
@@ -109,4 +109,33 @@ const editProduct = async (idProduct, product) => {
   }
 }
 
-export { addProduct, getProduct, getProducts, editProduct }
+const getProducts = async (limit, offset) => {
+  try {
+    const config = {
+      method: 'GET',
+      headers: {
+        accept: '*/*',
+        'Content-Type': 'application/json',
+      },
+    }
+    const response = await fetch(
+      endPoints.products.getProducts(limit, offset),
+      config
+    )
+    const data = await response.json()
+    return {
+      props: {
+        data,
+      },
+    }
+  } catch (error) {
+    console.error('Error al obtener los datos:', error)
+    return {
+      props: {
+        data: null,
+      },
+    }
+  }
+}
+
+export { addProduct, getProduct, allProducts, editProduct, getProducts }

@@ -1,11 +1,9 @@
 import { TrashIcon, CogIcon } from '@heroicons/react/solid'
-import Link from 'next/link'
+import Modal from '@components/commons/Modal'
+import FormProduct from '@components/forms/FormProduct'
+import { useState } from 'react'
 
-export default function TableProducts({
-  tableDataProducts,
-  setAlert,
-  setOpen,
-}) {
+export default function TableProducts({ tableDataProducts, setAlert }) {
   /*function cargarCategeria(categoryId) {
     const category = tableDataCategories.find((category) => {
       return category.id === categoryId
@@ -13,6 +11,21 @@ export default function TableProducts({
     return category.name
   }
   */
+  const [productEdit, setProductEdit] = useState(null)
+  const [open, setOpen] = useState(false)
+
+  function handleEditProduct(product) {
+    setProductEdit(product)
+    setOpen(true)
+  }
+
+  function formatDate(dateFromDB) {
+    const date = new Date(dateFromDB)
+    const day = String(date.getDate()).padStart(2, '0')
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const year = date.getFullYear()
+    return `${day}/${month}/${year}`
+  }
 
   return (
     <div className="table-responsive mb-5">
@@ -27,7 +40,7 @@ export default function TableProducts({
             <th>Status</th>
             <th>Fecha Creacion</th>
             <th>Ult. Actualizacion</th>
-            <th classNamgbe="text-center">Acciones</th>
+            <th className="text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -55,22 +68,33 @@ export default function TableProducts({
                         : 'text-success'
                     }`}
                   >
-                    {data.status}
+                    {data?.status || 'active'}
                   </div>
                 </td>
-                <td className="text-center">{data.creationAt}</td>
-                <td className="text-center">{data.updatedAt}</td>
+                <td className="text-center">{formatDate(data.creationAt)}</td>
+                <td className="text-center">{formatDate(data.updatedAt)}</td>
                 <td className="text-center">
                   <TrashIcon className="h-6 w-6 text-red-500 inline" />
-                  <Link href={`/dashboard/products/edit/${data.id}`}>
-                    <CogIcon className="h-6 w-6 text-black-500 inline" />
-                  </Link>
+                  <CogIcon
+                    className="h-6 w-6 text-black-500 inline cursor-pointer"
+                    onClick={() => handleEditProduct(data)}
+                  />
                 </td>
               </tr>
             )
           })}
         </tbody>
       </table>
+      {open ? (
+        <Modal open={open} setOpen={setOpen}>
+          <FormProduct
+            setAlert={setAlert}
+            setOpen={setOpen}
+            title="Editar producto"
+            product={productEdit}
+          />
+        </Modal>
+      ) : null}
     </div>
   )
 }
