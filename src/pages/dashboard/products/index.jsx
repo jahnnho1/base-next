@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { allProducts, getProducts } from '@services/api/product'
+import { getProducts } from '@services/api/product'
 import { PlusIcon } from '@heroicons/react/solid'
 import TableProducts from '@components/tables/tableProducts'
 import { useEffect, useState } from 'react'

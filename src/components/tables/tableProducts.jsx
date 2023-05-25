@@ -2,15 +2,9 @@ import { TrashIcon, CogIcon } from '@heroicons/react/solid'
 import Modal from '@components/commons/Modal'
 import FormProduct from '@components/forms/FormProduct'
 import { useState } from 'react'
+import { deleteProduct } from '@services/api/product'
 
 export default function TableProducts({ tableDataProducts, setAlert }) {
-  /*function cargarCategeria(categoryId) {
-    const category = tableDataCategories.find((category) => {
-      return category.id === categoryId
-    })
-    return category.name
-  }
-  */
   const [productEdit, setProductEdit] = useState(null)
   const [open, setOpen] = useState(false)
 
@@ -25,6 +19,26 @@ export default function TableProducts({ tableDataProducts, setAlert }) {
     const month = String(date.getMonth() + 1).padStart(2, '0')
     const year = date.getFullYear()
     return `${day}/${month}/${year}`
+  }
+
+  function handleDeleteProduct(productId) {
+    deleteProduct(productId)
+      .then(() => {
+        setAlert({
+          active: true,
+          message: 'Product added successfully',
+          type: 'success',
+          autoClose: false,
+        })
+      })
+      .catch((err) => {
+        setAlert({
+          active: true,
+          message: err.message,
+          type: 'error',
+          autoClose: false,
+        })
+      })
   }
 
   return (
@@ -74,7 +88,10 @@ export default function TableProducts({ tableDataProducts, setAlert }) {
                 <td className="text-center">{formatDate(data.creationAt)}</td>
                 <td className="text-center">{formatDate(data.updatedAt)}</td>
                 <td className="text-center">
-                  <TrashIcon className="h-6 w-6 text-red-500 inline" />
+                  <TrashIcon
+                    className="h-6 w-6 text-red-500 inline cursor-pointer"
+                    onClick={() => handleDeleteProduct(data.id)}
+                  />
                   <CogIcon
                     className="h-6 w-6 text-black-500 inline cursor-pointer"
                     onClick={() => handleEditProduct(data)}

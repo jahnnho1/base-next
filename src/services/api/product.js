@@ -138,4 +138,40 @@ const getProducts = async (limit, offset) => {
   }
 }
 
-export { addProduct, getProduct, allProducts, editProduct, getProducts }
+const deleteProduct = async (idProduct) => {
+  try {
+    const config = {
+      method: 'DELETE',
+      headers: {
+        accept: '*/*',
+        'Content-Type': 'application/json',
+      },
+    }
+    const response = await fetch(
+      endPoints.products.deleteProducts(idProduct),
+      config
+    )
+    const data = await response.json()
+    return {
+      props: {
+        data,
+      },
+    }
+  } catch (error) {
+    console.error('Error al obtener los datos:', error)
+    return {
+      props: {
+        data: null,
+      },
+    }
+  }
+}
+
+export {
+  addProduct,
+  getProduct,
+  allProducts,
+  editProduct,
+  getProducts,
+  deleteProduct,
+}
