@@ -26,7 +26,7 @@ export default function TableProducts({ tableDataProducts, setAlert }) {
       .then(() => {
         setAlert({
           active: true,
-          message: 'Product added successfully',
+          message: 'El producto fue eliminado correctamente.',
           type: 'success',
           autoClose: false,
         })

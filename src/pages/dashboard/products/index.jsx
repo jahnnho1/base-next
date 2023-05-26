@@ -31,12 +31,12 @@ export default function HomeProducts() {
         </li>
         <li className="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
           <span> Productos</span>
-          <Alert alert={alert} handleClose={toggleAlert} />
         </li>
       </ul>
       <div className="pt-5">
         <div className="mb-6 grid grid-cols-1 lg:grid-cols-5">
           <div className="panel h-full lg:col-span-4 order-last lg:order-none ">
+            <Alert alert={alert} handleClose={toggleAlert} />
             <TableProducts
               tableDataProducts={tableDataProducts}
               setAlert={setAlert}

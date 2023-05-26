@@ -53,7 +53,7 @@ export default function FormProduct({ product, title, setOpen, setAlert }) {
           () =>
             setAlert({
               active: true,
-              message: 'Product added successfully',
+              message: 'El producto fue editado correctamente.',
               type: 'success',
               autoClose: false,
             }),
@@ -75,7 +75,7 @@ export default function FormProduct({ product, title, setOpen, setAlert }) {
           () =>
             setAlert({
               active: true,
-              message: 'Product added successfully',
+              message: 'El producto fue agregado correctamente.',
               type: 'success',
               autoClose: false,
             }),
@@ -174,7 +174,7 @@ export default function FormProduct({ product, title, setOpen, setAlert }) {
         ></textarea>
       </div>
       <div className="mb-4 col-span-1 flex justify-center items-center">
-        <input type="submit" value="Enviar" className="btn btn-primary" />
+        <input type="submit" value="Guardar" className="btn btn-primary" />
       </div>
     </form>
   )
