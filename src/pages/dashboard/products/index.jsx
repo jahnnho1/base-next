@@ -1,8 +1,7 @@
 import Link from 'next/link'
-import { getProducts } from '@services/api/product'
+import { useState } from 'react'
 import { PlusIcon } from '@heroicons/react/solid'
 import TableProducts from '@components/tables/tableProducts'
-import { useEffect, useState } from 'react'
 import useAlert from '@hooks/useAlert'
 import Alert from '@components/commons/Alert'
 import Modal from '@components/commons/Modal'
@@ -11,15 +10,6 @@ import FormProduct from '@components/forms/FormProduct'
 export default function HomeProducts() {
   const [open, setOpen] = useState(false)
   const { alert, setAlert, toggleAlert } = useAlert()
-
-  const [tableDataProducts, setTableDataProducts] = useState([])
-  useEffect(() => {
-    getProducts(10, 1)
-      .then((res) => {
-        setTableDataProducts(res.props.data)
-      })
-      .catch((err) => console.log(err))
-  }, [alert])
 
   return (
     <>
@@ -37,10 +27,7 @@ export default function HomeProducts() {
         <div className="mb-6 grid grid-cols-1 lg:grid-cols-5">
           <div className="panel h-full lg:col-span-4 order-last lg:order-none ">
             <Alert alert={alert} handleClose={toggleAlert} />
-            <TableProducts
-              tableDataProducts={tableDataProducts}
-              setAlert={setAlert}
-            />
+            <TableProducts setAlert={setAlert} />
           </div>
           <div className="mb-5 flex justify-center items-center lg:col-span-1  order-first lg:order-none">
             <button

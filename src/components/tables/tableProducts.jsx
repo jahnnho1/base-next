@@ -1,10 +1,11 @@
 import { TrashIcon, CogIcon } from '@heroicons/react/solid'
 import Modal from '@components/commons/Modal'
 import FormProduct from '@components/forms/FormProduct'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { deleteProduct } from '@services/api/product'
+import { getProducts } from '@services/api/product'
 
-export default function TableProducts({ tableDataProducts, setAlert }) {
+export default function TableProducts({ setAlert }) {
   const [productEdit, setProductEdit] = useState(null)
   const [open, setOpen] = useState(false)
 
@@ -41,6 +42,31 @@ export default function TableProducts({ tableDataProducts, setAlert }) {
       })
   }
 
+  const [tableDataProducts, setTableDataProducts] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  useEffect(() => {
+    getProducts(0, currentPage)
+      .then((res) => {
+        setTableDataProducts(res.props.data)
+      })
+      .catch((err) => console.log(err))
+  }, [currentPage, setAlert])
+
+  const productsPerPage = 10
+  const indexOfLastProduct = currentPage * productsPerPage
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage
+  const currentProducts = tableDataProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  )
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber)
+  }
+
+  // Calcular la cantidad total de páginas
+  const totalPages = Math.ceil(tableDataProducts.length / productsPerPage)
+
   return (
     <div className="table-responsive mb-5">
       <table className="table-hover">
@@ -58,7 +84,7 @@ export default function TableProducts({ tableDataProducts, setAlert }) {
           </tr>
         </thead>
         <tbody>
-          {tableDataProducts.map((data) => {
+          {currentProducts.map((data) => {
             return (
               <tr key={data.id}>
                 <td>
@@ -102,6 +128,19 @@ export default function TableProducts({ tableDataProducts, setAlert }) {
           })}
         </tbody>
       </table>
+      <div className="pagination">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            className={`pagination-button ${
+              currentPage === index + 1 ? 'active' : ''
+            }`}
+            onClick={() => handlePageChange(index + 1)}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
       {open ? (
         <Modal open={open} setOpen={setOpen}>
           <FormProduct
