@@ -60,11 +60,21 @@ export default function TableProducts({ setAlert }) {
     indexOfLastProduct
   )
 
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber)
+  const handleChangePage = (changePage, pageNumber) => {
+    if (changePage === 'prev' && currentPage > 1) {
+      setCurrentPage(currentPage - 1)
+      return
+    }
+    if (changePage === 'next' && currentPage < totalPages) {
+      setCurrentPage(currentPage + 1)
+      return
+    }
+    if (changePage === 'default') {
+      setCurrentPage(pageNumber)
+      return
+    }
   }
 
-  // Calcular la cantidad total de páginas
   const totalPages = Math.ceil(tableDataProducts.length / productsPerPage)
 
   return (
@@ -147,8 +157,9 @@ export default function TableProducts({ setAlert }) {
               <a
                 href="#"
                 className="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                onClick={() => handleChangePage('prev')}
               >
-                Previous
+                Anterior
               </a>
             </li>
             <li>
@@ -161,7 +172,7 @@ export default function TableProducts({ setAlert }) {
                       : 'px-3 py-2 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white'
                   }
                   key={index}
-                  onClick={() => handlePageChange(index + 1)}
+                  onClick={() => handleChangePage('default', index + 1)}
                   aria-current={currentPage === index + 1 ? 'page' : undefined}
                 >
                   {index + 1}
@@ -173,8 +184,9 @@ export default function TableProducts({ setAlert }) {
               <a
                 href="#"
                 className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                onClick={() => handleChangePage('next')}
               >
-                Next
+                Siguiente
               </a>
             </li>
           </ul>
