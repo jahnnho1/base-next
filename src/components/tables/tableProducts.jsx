@@ -44,21 +44,58 @@ export default function TableProducts({ setAlert }) {
 
   const [tableDataProducts, setTableDataProducts] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
+
+  const productsPerPage = 10
+  const indexOfLastProduct = currentPage * productsPerPage
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage
+  const [currentProducts, setCurrentProducts] = useState([])
+  const [searchProduct, setSearchProduct] = useState([])
+  const [totalPages, setTotalPages] = useState(1)
+  //const totalPages = Math.ceil(tableDataProducts.length / productsPerPage)
+
+  function handleSearchProduct() {
+    const searchingProduct = document.querySelector('#searchProduct')
+    const value = searchingProduct.value
+    if (value === '') {
+      setCurrentPage(1)
+      return
+    }
+    const products = tableDataProducts.filter((product) =>
+      product.title.toLowerCase().includes(value.toLowerCase())
+    )
+    console.log(products)
+    setSearchProduct(products)
+    setTotalPages(Math.ceil(products.length / productsPerPage))
+  }
+
   useEffect(() => {
     getProducts(0, currentPage)
       .then((res) => {
         setTableDataProducts(res.props.data)
       })
+      .then(() => {
+        const searchingProduct = document.querySelector('#searchProduct')
+        if (searchProduct.length === 0 && searchingProduct.value === '') {
+          setCurrentProducts(
+            tableDataProducts.slice(indexOfFirstProduct, indexOfLastProduct)
+          )
+          setTotalPages(Math.ceil(tableDataProducts.length / productsPerPage))
+        } else {
+          setCurrentProducts(
+            searchProduct.slice(indexOfFirstProduct, indexOfLastProduct)
+          )
+        }
+      })
       .catch((err) => console.log(err))
-  }, [currentPage, setAlert])
-
-  const productsPerPage = 10
-  const indexOfLastProduct = currentPage * productsPerPage
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage
-  const currentProducts = tableDataProducts.slice(
+  }, [
+    currentPage,
+    setAlert,
+    tableDataProducts,
     indexOfFirstProduct,
-    indexOfLastProduct
-  )
+    indexOfLastProduct,
+    currentProducts,
+    searchProduct,
+  ])
 
   const handleChangePage = (changePage, pageNumber) => {
     if (changePage === 'prev' && currentPage > 1) {
@@ -75,10 +112,22 @@ export default function TableProducts({ setAlert }) {
     }
   }
 
-  const totalPages = Math.ceil(tableDataProducts.length / productsPerPage)
-
   return (
     <div className="grid grid-cols-1">
+      <div className="grid grid-cols-1 mb-5">
+        <div className="flex items-center">
+          <input
+            type="text"
+            placeholder="Buscar..."
+            className="border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none  w-full"
+            id="searchProduct"
+            onChange={() => handleSearchProduct()}
+          />
+          <button className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+            Buscar
+          </button>
+        </div>
+      </div>
       <div className="table-responsive col-span-1 mb-5">
         <table className="table-hover">
           <thead>
