@@ -23,22 +23,20 @@ export default function HomeProducts() {
           <span> Productos</span>
         </li>
       </ul>
-      <div className="pt-5">
-        <div className="mb-6 grid grid-cols-1 lg:grid-cols-5">
-          <div className="panel h-full lg:col-span-4 order-last lg:order-none ">
-            <Alert alert={alert} handleClose={toggleAlert} />
-            <TableProducts setAlert={setAlert} />
-          </div>
-          <div className="mb-5 flex justify-center items-center lg:col-span-1  order-first lg:order-none">
-            <button
-              type="button"
-              className="btn btn-primary self-start mt-4"
-              onClick={() => setOpen(true)}
-            >
-              <PlusIcon className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
-              Agregar producto
-            </button>
-          </div>
+      <div className="mb-6 grid grid-cols-1 lg:grid-cols-5 pt-5">
+        <div className="panel h-full lg:col-span-4 order-last lg:order-none ">
+          <Alert alert={alert} handleClose={toggleAlert} />
+          <TableProducts setAlert={setAlert} />
+        </div>
+        <div className="mb-5 flex justify-center items-center lg:col-span-1  order-first lg:order-none">
+          <button
+            type="button"
+            className="btn btn-primary self-start mt-4"
+            onClick={() => setOpen(true)}
+          >
+            <PlusIcon className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
+            Agregar producto
+          </button>
         </div>
       </div>
       {open ? (
