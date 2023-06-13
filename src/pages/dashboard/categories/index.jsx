@@ -35,10 +35,19 @@ export default function HomeCategories() {
             onClick={() => setOpen(true)}
           >
             <PlusIcon className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
-            Agregar producto
+            Agregar Categoria
           </button>
         </div>
       </div>
+      {open ? (
+        <Modal open={open} setOpen={setOpen}>
+          <FormProduct
+            setAlert={setAlert}
+            setOpen={setOpen}
+            title="Crear nueva categoria"
+          />
+        </Modal>
+      ) : null}
     </>
   )
 }
