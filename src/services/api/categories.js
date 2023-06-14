@@ -172,6 +172,6 @@ export {
   getProduct,
   allProducts,
   editProduct,
-   getProducts,
+  getProducts,
   deleteProduct,
 }
