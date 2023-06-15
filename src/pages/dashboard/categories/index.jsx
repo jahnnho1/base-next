@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { PlusIcon } from '@heroicons/react/solid'
-import TableProducts from '@components/tables/tableProducts'
+import tableCategories from '@components/tables/tableCategories'
 import useAlert from '@hooks/useAlert'
 import Alert from '@components/commons/Alert'
 import Modal from '@components/commons/Modal'

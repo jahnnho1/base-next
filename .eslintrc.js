@@ -13,6 +13,8 @@ module.exports = {
     'next',
     'next/core-web-vitals',
     'plugin:prettier/recommended',
+    'next/babel',
+    'next/core-web-vitals',
   ],
   rules: {
     'jsx-a11y/click-events-have-key-events': 'off',
