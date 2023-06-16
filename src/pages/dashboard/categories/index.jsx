@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { PlusIcon } from '@heroicons/react/solid'
-import tableCategories from '@components/tables/tableCategories'
+import TableCategories from '@components/tables/tableCategories'
 import useAlert from '@hooks/useAlert'
 import Alert from '@components/commons/Alert'
 import Modal from '@components/commons/Modal'
@@ -26,7 +26,7 @@ export default function HomeCategories() {
       <div className="mb-6 grid grid-cols-1 lg:grid-cols-5 pt-5">
         <div className="panel h-full lg:col-span-4 order-last lg:order-none ">
           <Alert alert={alert} handleClose={toggleAlert} />
-          <TableProducts setAlert={setAlert} />
+          <TableCategories setAlert={setAlert} />
         </div>
         <div className="mb-5 flex justify-center items-center lg:col-span-1  order-first lg:order-none">
           <button

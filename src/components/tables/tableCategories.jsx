@@ -2,15 +2,14 @@ import { TrashIcon, CogIcon } from '@heroicons/react/solid'
 import Modal from '@components/commons/Modal'
 import FormProduct from '@components/forms/FormProduct'
 import { useEffect, useState } from 'react'
-import { deleteProduct } from '@services/api/product'
-import { getProducts } from '@services/api/product'
+import { getCategories, deleteProduct } from '@services/api/categories'
 
-export default function tableCategories({ setAlert }) {
-  const [productEdit, setProductEdit] = useState(null)
+export default function TableCategories({ setAlert }) {
+  const [itemEdit, setItemEdit] = useState(null)
   const [open, setOpen] = useState(false)
 
-  function handleEditProduct(product) {
-    setProductEdit(product)
+  function handleEditItem(item) {
+    setItemEdit(item)
     setOpen(true)
   }
 
@@ -22,8 +21,8 @@ export default function tableCategories({ setAlert }) {
     return `${day}/${month}/${year}`
   }
 
-  function handleDeleteProduct(productId) {
-    deleteProduct(productId)
+  function handleDeleteItem(itemId) {
+    deleteProduct(itemId)
       .then(() => {
         setAlert({
           active: true,
@@ -42,74 +41,40 @@ export default function tableCategories({ setAlert }) {
       })
   }
 
-  const [tableDataProducts, setTableDataProducts] = useState([])
-  const [currentPage, setCurrentPage] = useState(1)
+  const [dataTableItems, setDataTableItems] = useState([])
+  const [searchItem, setSearchItem] = useState([])
+  const [currentItems, setCurrentItems] = useState([])
 
-  const productsPerPage = 10
-  const indexOfLastProduct = currentPage * productsPerPage
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage
-  const [currentProducts, setCurrentProducts] = useState([])
-  const [searchProduct, setSearchProduct] = useState([])
-  const [totalPages, setTotalPages] = useState(1)
-  //const totalPages = Math.ceil(tableDataProducts.length / productsPerPage)
-
-  function handleSearchProduct() {
-    const searchingProduct = document.querySelector('#searchProduct')
-    const value = searchingProduct.value
-    if (value === '') {
-      setCurrentPage(1)
-      return
-    }
-    const products = tableDataProducts.filter((product) =>
-      product.title.toLowerCase().includes(value.toLowerCase())
+  function handleSearchItem() {
+    const searchingItem = document.querySelector('#searchItem')
+    const value = searchingItem.value
+    const items = dataTableItems.filter((item) =>
+      item.name.toLowerCase().includes(value.toLowerCase())
     )
-    console.log(products)
-    setSearchProduct(products)
-    setTotalPages(Math.ceil(products.length / productsPerPage))
+    setSearchItem(items)
   }
 
   useEffect(() => {
-    getProducts(0, currentPage)
+    getCategories()
       .then((res) => {
-        setTableDataProducts(res.props.data)
+        setDataTableItems(res.props.data)
       })
       .then(() => {
-        const searchingProduct = document.querySelector('#searchProduct')
-        if (searchProduct.length === 0 && searchingProduct.value === '') {
-          setCurrentProducts(
-            tableDataProducts.slice(indexOfFirstProduct, indexOfLastProduct)
-          )
-          setTotalPages(Math.ceil(tableDataProducts.length / productsPerPage))
+        const searchingItem = document.querySelector('#searchItem')
+        if (searchingItem.value === '') {
+          setCurrentItems(dataTableItems)
         } else {
-          setCurrentProducts(
-            searchProduct.slice(indexOfFirstProduct, indexOfLastProduct)
-          )
+          setCurrentItems(searchItem)
         }
       })
       .catch((err) => console.log(err))
-  }, [
-    currentPage,
-    setAlert,
-    tableDataProducts,
-    indexOfFirstProduct,
-    indexOfLastProduct,
-    currentProducts,
-    searchProduct,
-  ])
+  }, [searchItem, dataTableItems])
 
-  const handleChangePage = (changePage, pageNumber) => {
-    if (changePage === 'prev' && currentPage > 1) {
-      setCurrentPage(currentPage - 1)
-      return
-    }
-    if (changePage === 'next' && currentPage < totalPages) {
-      setCurrentPage(currentPage + 1)
-      return
-    }
-    if (changePage === 'default') {
-      setCurrentPage(pageNumber)
-      return
-    }
+  const statusMap = {
+    active: 'text-success',
+    Pending: 'text-secondary',
+    'In Progress': 'text-info',
+    Canceled: 'text-danger',
   }
 
   return (
@@ -120,8 +85,8 @@ export default function tableCategories({ setAlert }) {
             type="text"
             placeholder="Buscar..."
             className="border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none  w-full"
-            id="searchProduct"
-            onChange={() => handleSearchProduct()}
+            id="searchItem"
+            onChange={() => handleSearchItem()}
           />
           <button className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
             Buscar
@@ -132,11 +97,8 @@ export default function tableCategories({ setAlert }) {
         <table className="table-hover">
           <thead>
             <tr>
-              <th>Nombre</th>
-              <th>Precio</th>
-              <th>Categoria</th>
-              <th>Stock</th>
-              <th>Descripcion</th>
+              <th>ID</th>
+              <th>Name</th>
               <th>Status</th>
               <th>Fecha Creacion</th>
               <th>Ult. Actualizacion</th>
@@ -144,28 +106,17 @@ export default function tableCategories({ setAlert }) {
             </tr>
           </thead>
           <tbody>
-            {currentProducts.map((data) => {
+            {currentItems.map((data) => {
               return (
                 <tr key={data.id}>
                   <td>
-                    <div className="whitespace-nowrap">{data.title}</div>
+                    <div className="whitespace-nowrap">{data.id}</div>
                   </td>
-                  <td className="text-right">${data.price}</td>
-                  <td className="text-center">{data.category.name}</td>
-                  <td className="text-center">10</td>
-                  <td>{data.description.substring(0, 10) + '...'} </td>
+                  <td className="text-center">{data.name}</td>
                   <td>
                     <div
                       className={`whitespace-nowrap text-center ${
-                        data.status === 'active'
-                          ? 'text-success'
-                          : data.status === 'Pending'
-                          ? 'text-secondary'
-                          : data.status === 'In Progress'
-                          ? 'text-info'
-                          : data.status === 'Canceled'
-                          ? 'text-danger'
-                          : 'text-success'
+                        statusMap[data.status] || 'text-success'
                       }`}
                     >
                       {data?.status || 'active'}
@@ -176,11 +127,11 @@ export default function tableCategories({ setAlert }) {
                   <td className="text-center">
                     <TrashIcon
                       className="h-6 w-6 text-red-500 inline cursor-pointer"
-                      onClick={() => handleDeleteProduct(data.id)}
+                      onClick={() => handleDeleteItem(data.id)}
                     />
                     <CogIcon
                       className="h-6 w-6 text-black-500 inline cursor-pointer"
-                      onClick={() => handleEditProduct(data)}
+                      onClick={() => handleEditItem(data)}
                     />
                   </td>
                 </tr>
@@ -189,57 +140,15 @@ export default function tableCategories({ setAlert }) {
           </tbody>
         </table>
         {open ? (
-          <Modal open={open} setOpen={setOpen}>
+          <Modal key={itemEdit?.id} open={open} setOpen={setOpen}>
             <FormProduct
               setAlert={setAlert}
               setOpen={setOpen}
               title="Editar producto"
-              product={productEdit}
+              product={itemEdit}
             />
           </Modal>
         ) : null}
-      </div>
-      <div className="col-span-1 table-responsive py-5">
-        <nav aria-label="Page navigation">
-          <ul className="inline-flex -space-x-px">
-            <li>
-              <a
-                href="#"
-                className="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                onClick={() => handleChangePage('prev')}
-              >
-                Anterior
-              </a>
-            </li>
-            <li>
-              {Array.from({ length: totalPages }, (_, index) => (
-                <a
-                  href="#"
-                  className={
-                    currentPage !== index + 1
-                      ? `px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`
-                      : 'px-3 py-2 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white'
-                  }
-                  key={index}
-                  onClick={() => handleChangePage('default', index + 1)}
-                  aria-current={currentPage === index + 1 ? 'page' : undefined}
-                >
-                  {index + 1}
-                </a>
-              ))}
-            </li>
-
-            <li>
-              <a
-                href="#"
-                className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                onClick={() => handleChangePage('next')}
-              >
-                Siguiente
-              </a>
-            </li>
-          </ul>
-        </nav>
       </div>
     </div>
   )

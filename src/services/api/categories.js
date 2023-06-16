@@ -53,7 +53,7 @@ const getProduct = async (id) => {
   }
 }
 
-const allProducts = async () => {
+const getCategories = async () => {
   try {
     const config = {
       method: 'GET',
@@ -62,7 +62,7 @@ const allProducts = async () => {
         'Content-Type': 'application/json',
       },
     }
-    const response = await fetch(endPoints.products.allProducts, config)
+    const response = await fetch(endPoints.categories.getCategories, config)
     const data = await response.json()
     return {
       props: {
@@ -91,35 +91,6 @@ const editProduct = async (idProduct, product) => {
     }
     const response = await fetch(
       endPoints.products.updateProducts(idProduct),
-      config
-    )
-    const data = await response.json()
-    return {
-      props: {
-        data,
-      },
-    }
-  } catch (error) {
-    console.error('Error al obtener los datos:', error)
-    return {
-      props: {
-        data: null,
-      },
-    }
-  }
-}
-
-const getProducts = async (limit, offset) => {
-  try {
-    const config = {
-      method: 'GET',
-      headers: {
-        accept: '*/*',
-        'Content-Type': 'application/json',
-      },
-    }
-    const response = await fetch(
-      endPoints.products.getProducts(limit, offset),
       config
     )
     const data = await response.json()
@@ -167,11 +138,4 @@ const deleteProduct = async (idProduct) => {
   }
 }
 
-export {
-  addCategory,
-  getProduct,
-  allProducts,
-  editProduct,
-  getProducts,
-  deleteProduct,
-}
+export { addCategory, getProduct, getCategories, editProduct, deleteProduct }
