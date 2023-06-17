@@ -16,7 +16,7 @@ export default function HomeCategories() {
       <ul className="flex space-x-2 rtl:space-x-reverse">
         <li>
           <Link href="/dashboard" className="text-primary hover:underline">
-            Inicio Dashboard
+            Inicio Dashboard Owo
           </Link>
         </li>
         <li className="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
