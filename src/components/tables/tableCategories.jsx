@@ -89,7 +89,7 @@ export default function TableCategories({ setAlert }) {
             onChange={() => handleSearchItem()}
           />
           <button className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-            Buscar
+            Buscars
           </button>
         </div>
       </div>
