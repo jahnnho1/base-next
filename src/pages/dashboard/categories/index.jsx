@@ -5,7 +5,7 @@ import TableCategories from '@components/tables/tableCategories'
 import useAlert from '@hooks/useAlert'
 import Alert from '@components/commons/Alert'
 import Modal from '@components/commons/Modal'
-import FormProduct from '@components/forms/FormProduct'
+import FormCategory from '@components/forms/FormCategory'
 
 export default function HomeCategories() {
   const [open, setOpen] = useState(false)
@@ -16,7 +16,7 @@ export default function HomeCategories() {
       <ul className="flex space-x-2 rtl:space-x-reverse">
         <li>
           <Link href="/dashboard" className="text-primary hover:underline">
-            Inicio Dashboard test asdas tintero
+            Inicio Dashboard
           </Link> 
         </li>
         <li className="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
@@ -41,7 +41,7 @@ export default function HomeCategories() {
       </div>
       {open ? (
         <Modal open={open} setOpen={setOpen}>
-          <FormProduct
+          <FormCategory
             setAlert={setAlert}
             setOpen={setOpen}
             title="Crear nueva categoria"

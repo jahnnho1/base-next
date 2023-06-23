@@ -1,8 +1,8 @@
 import { TrashIcon, CogIcon } from '@heroicons/react/solid'
 import Modal from '@components/commons/Modal'
-import FormProduct from '@components/forms/FormProduct'
 import { useEffect, useState } from 'react'
-import { getCategories, deleteProduct } from '@services/api/categories'
+import { getCategories, deleteProduct } from '@services/api/category'
+import FormCategory from '@components/forms/FormCategory'
 
 export default function TableCategories({ setAlert }) {
   const [itemEdit, setItemEdit] = useState(null)
@@ -141,11 +141,11 @@ export default function TableCategories({ setAlert }) {
         </table>
         {open ? (
           <Modal key={itemEdit?.id} open={open} setOpen={setOpen}>
-            <FormProduct
+            <FormCategory
               setAlert={setAlert}
               setOpen={setOpen}
               title="Editar producto"
-              product={itemEdit}
+              category={itemEdit}
             />
           </Modal>
         ) : null}

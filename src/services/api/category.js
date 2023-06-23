@@ -79,18 +79,18 @@ const getCategories = async () => {
   }
 }
 
-const editProduct = async (idProduct, product) => {
+const editCategory = async (idCategory, category) => {
   try {
     const config = {
       method: 'PUT',
-      body: JSON.stringify(product),
+      body: JSON.stringify(category),
       headers: {
         accept: '*/*',
         'Content-Type': 'application/json',
       },
     }
     const response = await fetch(
-      endPoints.products.updateProducts(idProduct),
+      endPoints.categories.updateCategory(idCategory),
       config
     )
     const data = await response.json()
@@ -109,7 +109,7 @@ const editProduct = async (idProduct, product) => {
   }
 }
 
-const deleteProduct = async (idProduct) => {
+const deleteProduct = async (idCategory) => {
   try {
     const config = {
       method: 'DELETE',
@@ -119,7 +119,7 @@ const deleteProduct = async (idProduct) => {
       },
     }
     const response = await fetch(
-      endPoints.products.deleteProducts(idProduct),
+      endPoints.products.deleteProducts(idCategory),
       config
     )
     const data = await response.json()
@@ -138,4 +138,4 @@ const deleteProduct = async (idProduct) => {
   }
 }
 
-export { addCategory, getProduct, getCategories, editProduct, deleteProduct }
+export { addCategory, getProduct, getCategories, editCategory, deleteProduct }
